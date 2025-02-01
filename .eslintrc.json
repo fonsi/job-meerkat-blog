@@ -1,0 +1,11 @@
+{
+    "extends": ["next/core-web-vitals", "next/typescript"],
+    "rules": {
+        "quotes": ["warn", "single"]
+    },
+    "ignorePatterns": [
+        "node_modules/",
+        ".next/",
+        "out/"
+    ]
+}
