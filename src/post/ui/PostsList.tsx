@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { PostData } from '../getPostData';
 import styled from 'styled-components';
-import { Colors } from '@/shared/styles/constants';
+import { Colors, Device } from '@/shared/styles/constants';
 
 type Props = {
     posts: PostData[];
@@ -18,15 +18,25 @@ const StyledList = styled.ul`
 
 const StyledLink = styled(Link)`
     display: flex;
-    gap: 12px;
+    flex-direction: column;
+    gap: 4px;
+
+    @media ${Device.tablet} {
+        flex-direction: row;
+        gap: 12px;
+    }
 `;
 
 const PostTexts = styled.div`
-    border-left: 1px solid ${Colors.mediumGrey};
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 24px 0 24px 12px;
+    padding: 0;
+
+    @media ${Device.tablet} {
+        border-left: 1px solid ${Colors.mediumGrey};
+        padding: 24px 0 24px 12px;
+    }
 `;
 
 const PostTitle = styled.h2``;
@@ -37,6 +47,7 @@ const PostExcerpt = styled.p`
 `;
 
 const PostDate = styled.div`
+    color: ${Colors.mediumGrey};
     font-size: 12px;
     flex-grow: 1;
     flex-shrink: 0;

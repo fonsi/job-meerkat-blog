@@ -13,6 +13,7 @@ const StyledContainer = styled.div<ContainerProps>`
     flex-grow: 1;
     margin: ${(props) => props.$margin || '0'};
     max-width: ${(props) => props.$maxWidth || '960px'};
+    padding: 0 12px;
     width: 100%;
 `;
 

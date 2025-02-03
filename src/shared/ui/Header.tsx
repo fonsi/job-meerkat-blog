@@ -1,9 +1,10 @@
 'use client';
 
 import styled from 'styled-components';
-import { Colors } from '@/shared/styles/constants';
 import Link from 'next/link';
+import { Colors, Device } from '@/shared/styles/constants';
 import { LogoText } from '../image/LogoText';
+import { OpenInNew } from '../image/icons/OpenInNew';
 
 const StyledDiv = styled.div`
     align-items: center;
@@ -14,7 +15,7 @@ const StyledDiv = styled.div`
     font-size: 24px;
     min-height: 54px;
     justify-content: center;
-    padding: 8px;
+    padding: 8px 12px;
     width: 100%;
 `;
 
@@ -47,9 +48,28 @@ const StyledLink = styled(Link)`
 `;
 
 const BlogText = styled.span`
-    border-left: 1px solid #fff;
+    border-left: 1px solid ${Colors.white};
     margin-top: 5px;
     padding-left: 8px;
+`;
+
+const HeaderLinks = styled.nav`
+    font-size: 14px;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+`;
+
+const HeaderCta = styled(Link)`
+    display: none;
+
+    @media ${Device.tablet} {
+        align-items: flex-start;
+        display: flex;
+        gap: 4px;
+    }
 `;
 
 export const Header = () => (
@@ -57,10 +77,15 @@ export const Header = () => (
         <Container>
             <LogoContainer>
                 <StyledLink href="/">
-                    <LogoText fill="#fff" />
+                    <LogoText fill={Colors.white} />
                     <BlogText>BLOG</BlogText>
                 </StyledLink>
             </LogoContainer>
+            <HeaderLinks>
+                <HeaderCta target="_blank" href="https://jobmeerkat.com">
+                    <OpenInNew /> Find your dream job here!
+                </HeaderCta>
+            </HeaderLinks>
         </Container>
     </StyledDiv>
 );
