@@ -10,10 +10,9 @@ type ContainerProps = {
 
 const StyledContainer = styled.div<ContainerProps>`
     display: flex;
-    flex-direction: column;
     flex-grow: 1;
     margin: ${(props) => props.$margin || '0'};
-    max-width: ${(props) => props.$maxWidth || '1280px'};
+    max-width: ${(props) => props.$maxWidth || '960px'};
     width: 100%;
 `;
 

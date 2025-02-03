@@ -22,7 +22,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1280px;
+    max-width: 960px;
     width: 100%;
 `;
 
@@ -57,7 +57,8 @@ export const Header = () => (
         <Container>
             <LogoContainer>
                 <StyledLink href="/">
-                    <LogoText fill="#fff" /><BlogText>BLOG</BlogText>
+                    <LogoText fill="#fff" />
+                    <BlogText>BLOG</BlogText>
                 </StyledLink>
             </LogoContainer>
         </Container>
