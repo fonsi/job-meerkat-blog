@@ -13,7 +13,6 @@ const StyledPost = styled.div`
     flex-direction: column;
     font-size: 14px;
     margin: 48px auto;
-    padding: 0 12px;
 `;
 
 const Title = styled.h1`
