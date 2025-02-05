@@ -1,11 +1,10 @@
 ---
 title: 'How to Stand Out in a Competitive Job Market – Resume, LinkedIn, and Networking Hacks'
+description: 'Want to stand out in a competitive job market? Learn expert resume tips, LinkedIn strategies, and networking hacks to boost your job search success.'
 date: '2025-01-31'
 ---
 
 In today's competitive job market, standing out from the crowd is more important than ever. Employers sift through countless applications, so you need to ensure that your resume, LinkedIn profile, and networking efforts are top-notch. Here are some essential hacks to give you a competitive edge.
-
----
 
 ## 1. Optimize Your Resume
 

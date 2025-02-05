@@ -18,13 +18,24 @@ export async function generateMetadata(
 
     return {
         ...parentMetadata,
-        title: `${post.title} | Jobmeerkat Blog`,
-        description: post.excerpt,
+        title: post.title,
+        description: post.description,
+        openGraph: {
+            title: post.title,
+            description: post.description,
+            url: post.url,
+            type: 'article',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description: post.description,
+        },
     };
 }
 
 export async function generateStaticParams() {
-    const posts = await getPostsData();
+    const posts = getPostsData();
 
     return posts.map((post) => ({
         id: post.id,

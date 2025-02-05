@@ -8,11 +8,11 @@ export type PostData = {
     id: string;
     title: string;
     date: string;
-    excerpt: string;
+    description: string;
     url: string;
 };
 
-export type PostDataWithContent = Omit<PostData, 'url'> & {
+export type PostDataWithContent = PostData & {
     content: string;
 };
 
@@ -21,7 +21,8 @@ const postsDirectory = path.join(process.cwd(), 'posts');
 const getIdFromFileName = (fileName: string): string =>
     fileName.replace(/\.md$/, '');
 
-const makePostUrl = (id: string): string => `/post/${id}`;
+const makePostUrl = (id: string): string =>
+    `${process.env.NEXT_PUBLIC_SITE_URL}/post/${id}`;
 
 export const getPostsData = (): Array<PostData> => {
     const fileNames = fs.readdirSync(postsDirectory);
@@ -30,14 +31,11 @@ export const getPostsData = (): Array<PostData> => {
 
         const fullPath = path.join(postsDirectory, fileName);
         const fileContents = fs.readFileSync(fullPath, 'utf8');
-        const matterResult = matter(fileContents, {
-            excerpt: true,
-        });
+        const matterResult = matter(fileContents);
 
         return {
             id,
             ...matterResult.data,
-            excerpt: matterResult.excerpt,
             url: makePostUrl(id),
         } as PostData;
     });
@@ -75,9 +73,7 @@ export const getPostData = async ({
 
     const fullPath = path.join(postsDirectory, postFileName);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const matterResult = matter(fileContents, {
-        excerpt: true,
-    });
+    const matterResult = matter(fileContents);
 
     const processedContent = await remark()
         .use(html)
@@ -87,7 +83,7 @@ export const getPostData = async ({
     return {
         id,
         ...matterResult.data,
-        excerpt: matterResult.excerpt,
+        url: makePostUrl(id),
         content: contentHtml,
     } as PostDataWithContent;
 };

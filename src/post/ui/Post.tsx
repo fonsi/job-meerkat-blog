@@ -25,11 +25,12 @@ const Date = styled.p`
     font-size: 12px;
 `;
 
-const Content = styled.section`
+const Content = styled.article`
     line-height: 150%;
 
-    ul {
-        list-style: none;
+    ul,
+    ol {
+        margin-left: 24px;
     }
 
     p {
@@ -38,7 +39,7 @@ const Content = styled.section`
 
     h2 {
         line-height: 120%;
-        margin: 18px 0 12px;
+        margin: 36px 0 12px;
     }
 
     h3 {

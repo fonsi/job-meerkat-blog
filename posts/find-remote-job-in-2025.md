@@ -1,11 +1,10 @@
 ---
 title: 'How to Find a Remote Job in 2025: Tips for Success'
+description: 'Discover the best strategies to land a remote job in 2025! From top job boards to in-demand skills, this guide will help you secure your dream remote role'
 date: '2025-01-29'
 ---
 
 The remote job market continues to evolve, with more companies offering flexible work opportunities than ever before. However, competition is fierce, and landing a great remote role requires strategy and preparation. Whether you're new to remote work or looking to switch jobs, here are some key tips to help you succeed in 2025.
-
----
 
 ## 1. Optimize Your Resume and LinkedIn Profile
 

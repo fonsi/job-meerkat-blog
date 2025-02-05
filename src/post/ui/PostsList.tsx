@@ -41,7 +41,7 @@ const PostTexts = styled.div`
 
 const PostTitle = styled.h2``;
 
-const PostExcerpt = styled.p`
+const PostDescription = styled.p`
     font-size: 14px;
     line-height: 150%;
 `;
@@ -61,7 +61,7 @@ const Post = ({ post }: { post: PostData }) => {
                 <PostDate>{post.date}</PostDate>
                 <PostTexts>
                     <PostTitle>{post.title}</PostTitle>
-                    <PostExcerpt>{post.excerpt}</PostExcerpt>
+                    <PostDescription>{post.description}</PostDescription>
                 </PostTexts>
             </StyledLink>
         </li>
