@@ -51,6 +51,14 @@ const Content = styled.article`
         margin: 24px 0;
         opacity: 0.2;
     }
+
+    a {
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
 `;
 
 export const Post = ({ post }: Props) => {
