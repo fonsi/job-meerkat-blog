@@ -14,24 +14,24 @@
         "pre-commit": "lint-staged && npm run typecheck"
     },
     "dependencies": {
-        "next": "^15.2.0",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0",
+        "next": "^15.3.1",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
         "remark": "^15.0.1",
         "remark-html": "^16.0.1",
-        "styled-components": "^6.1.15"
+        "styled-components": "^6.1.17"
     },
     "devDependencies": {
-        "@types/node": "^22.13.7",
-        "@types/react": "^19.0.10",
-        "eslint": "^9.21.0",
-        "eslint-config-next": "^15.2.0",
+        "@types/node": "^22.15.3",
+        "@types/react": "^19.1.2",
+        "eslint": "^9.25.1",
+        "eslint-config-next": "^15.3.1",
         "gray-matter": "^4.0.3",
         "husky": "^9.1.7",
-        "lint-staged": "^15.4.3",
+        "lint-staged": "^15.5.1",
         "next-sitemap": "^4.2.3",
-        "prettier": "^3.5.2",
-        "typescript": "^5.8.2"
+        "prettier": "^3.5.3",
+        "typescript": "^5.8.3"
     },
     "lint-staged": {
         "*.{js,ts,jsx,tsx,mjs,json}": "prettier --list-different --write"
