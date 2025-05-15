@@ -3,10 +3,10 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 import { X } from '../image/icons/X';
-import { Bluesky } from '../image/icons/Bluesky';
 import { Linkedin } from '../image/icons/Linkedin';
 import { Container } from './Container';
 import { Colors } from '../styles/constants';
+import { Threads } from '../image/icons/Threads';
 
 const StyledFooter = styled.footer`
     align-items: center;
@@ -57,18 +57,18 @@ export const Footer = () => (
             </StyledMadeBy>
             <StyledSocial>
                 <SocialLink
+                    aria-label="Follow Jobmeerkat at Threads"
+                    target="_blank"
+                    href="https://www.threads.net/@jobmeerkat"
+                >
+                    <Threads />
+                </SocialLink>
+                <SocialLink
                     aria-label="Follow Jobmeerkat at X"
                     target="_blank"
                     href="https://x.com/jobmeerkat"
                 >
                     <X />
-                </SocialLink>
-                <SocialLink
-                    aria-label="Follow Jobmeerkat at Bluesky"
-                    target="_blank"
-                    href="https://bsky.app/profile/jobmeerkat.bsky.social"
-                >
-                    <Bluesky />
                 </SocialLink>
                 <SocialLink
                     aria-label="Follow Jobmeerkat at Linkedin"
