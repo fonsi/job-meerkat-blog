@@ -86,11 +86,9 @@ jobs:
           NEW_FILES=$(git diff --cached --name-only)
           echo "📄 Files to be committed: $NEW_FILES"
           
-          # Create commit message with file names
-          git commit -m "🤖 Auto-generated blog post for $(date +'%Y-%m-%d')
-
-New blog posts:
-$NEW_FILES"
+          # Create commit message
+          COMMIT_MSG="🤖 Auto-generated blog post for $(date +'%Y-%m-%d')"
+          git commit -m "$COMMIT_MSG"
           
           echo "🚀 Pushing changes to repository..."
           git push
