@@ -53,22 +53,23 @@ jobs:
           echo "📄 Files in posts directory after generation:"
           ls -la posts/ || echo "No posts directory found"
       
-      - name: Check for changes
+      - name: Check for new blog posts
         id: changes
         run: |
-          echo "🔍 Checking for changes..."
+          echo "🔍 Checking for new blog posts in posts/ folder..."
           echo "📄 Git status:"
           git status
-          echo "📄 Git diff:"
-          git diff --name-only
-          echo "📄 Git diff content:"
-          git diff
-          if git diff --quiet; then
-            echo "❌ No changes detected"
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          else
-            echo "✅ Changes detected"
+          
+          # Check specifically for new .md files in posts/ folder
+          NEW_POSTS=$(git ls-files --others --exclude-standard posts/*.md 2>/dev/null || echo "")
+          
+          if [ -n "$NEW_POSTS" ]; then
+            echo "✅ New blog posts detected:"
+            echo "$NEW_POSTS"
             echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ No new blog posts found in posts/ folder"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
           fi
       
       - name: Commit and push changes
@@ -76,8 +77,22 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add posts/
-          git commit -m "🤖 Auto-generated blog post for $(date +'%Y-%m-%d')"
+          
+          # Add only new .md files in posts/ folder
+          echo "📝 Adding new blog posts to git..."
+          git add posts/*.md
+          
+          # Get the list of new files for the commit message
+          NEW_FILES=$(git diff --cached --name-only)
+          echo "📄 Files to be committed: $NEW_FILES"
+          
+          # Create commit message with file names
+          git commit -m "🤖 Auto-generated blog post for $(date +'%Y-%m-%d')
+
+New blog posts:
+$NEW_FILES"
+          
+          echo "🚀 Pushing changes to repository..."
           git push
       
       - name: Build and deploy to S3
