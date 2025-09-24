@@ -147,6 +147,7 @@ date: '${new Date().toISOString().split('T')[0]}'
 
 CONTENT GUIDELINES:
 - Start with an engaging introduction
+- The title will be included in the frontmatter, so do not include it in the content
 - Use numbered lists and bullet points
 - Include practical examples
 - End with a strong conclusion
