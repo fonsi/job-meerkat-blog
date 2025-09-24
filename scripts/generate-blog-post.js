@@ -133,7 +133,7 @@ REQUIREMENTS:
 2. Target remote job seekers and professionals
 3. Include actionable advice and practical tips
 4. Use clear headings and bullet points
-5. Include a call-to-action to JobMeerkat.com
+5. Include a call-to-action to JobMeerkat.com as a markdown link.
 6. Write 800-1200 words
 7. Use the exact frontmatter format below
 8. Avoid topics already covered in these recent posts: ${existingTitlesText}
@@ -150,7 +150,7 @@ CONTENT GUIDELINES:
 - Use numbered lists and bullet points
 - Include practical examples
 - End with a strong conclusion
-- Add a call-to-action to visit JobMeerkat.com
+- Add a call-to-action to visit JobMeerkat.com. Remember that the link should be formated as a markdown link. Like this: [JobMeerkat](https://jobmeerkat.com).
 - Use emojis sparingly but effectively
 - Include relevant keywords for SEO
 
