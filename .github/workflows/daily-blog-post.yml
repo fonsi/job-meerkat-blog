@@ -1,0 +1,74 @@
+name: Daily Blog Post Generation
+
+on:
+  schedule:
+    # Run daily at 6 AM UTC (adjust timezone as needed)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  generate-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Generate new blog post
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          npm run generate:blog:prod
+      
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes detected"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit and push changes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add posts/
+          git commit -m "🤖 Auto-generated blog post for $(date +'%Y-%m-%d')"
+          git push
+      
+      - name: Build and deploy to S3
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          WEB_BUCKET: ${{ secrets.WEB_BUCKET }}
+        run: |
+          npm run build
+          ./scripts/copy-to-S3.sh
+      
+      - name: Notify on success
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          echo "✅ Daily blog post generated and deployed successfully!"
+          echo "📝 New blog post created and published to S3"
+      
+      - name: Notify on no changes
+        if: steps.changes.outputs.has_changes == 'false'
+        run: |
+          echo "ℹ️ No new blog post generated (likely due to topic constraints or API issues)"

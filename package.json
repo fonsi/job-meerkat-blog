@@ -11,7 +11,9 @@
         "deploy": "npm run build && ./scripts/copy-to-S3.sh",
         "prepare": "husky",
         "typecheck": "tsc --noEmit",
-        "pre-commit": "lint-staged && npm run typecheck"
+        "pre-commit": "lint-staged && npm run typecheck",
+        "test:blog:dev": "npm run copyEnv:dev && node scripts/test-blog-generator.js",
+        "generate:blog:prod": "npm run copyEnv:prod && node scripts/generate-blog-post.js"
     },
     "dependencies": {
         "next": "^15.3.1",
