@@ -9,6 +9,9 @@ on:
 jobs:
   generate-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     
     steps:
       - name: Checkout repository
