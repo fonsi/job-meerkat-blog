@@ -62,6 +62,10 @@ async function testBlogGenerator() {
             console.log('🤖 Testing AI blog post generation...');
             const blogContent = await generateBlogPost(topic, existingTitles);
 
+            console.log('🔍 Blog content:');
+            console.log(blogContent);
+            console.log('🔍 Blog content end');
+
             // Save test blog post
             const filename = saveBlogPost(blogContent, topic);
             console.log(`✅ Test blog post saved: ${filename}`);
