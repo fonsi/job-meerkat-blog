@@ -52,6 +52,7 @@ if (!OPENAI_API_KEY) {
 
 // Blog post topics and themes for JobMeerkat
 const BLOG_TOPICS = [
+    // Original topics
     'Remote work productivity tips',
     'Job search strategies for 2025',
     'Remote company culture insights',
@@ -72,7 +73,52 @@ const BLOG_TOPICS = [
     'Remote work performance metrics',
     'Remote work networking strategies',
     'Remote work career advancement',
+
+    // New comparative and research-based topics
+    'Best remote job boards comparison 2025',
+    'Top project management tools for remote teams',
+    'Remote work communication tools comparison',
+    'Best time tracking software for remote workers',
+    'Remote work VPN services comparison',
+    'Cloud storage solutions for remote teams',
+    'Remote work laptop recommendations',
+    'Best remote work monitors and accessories',
+    'Remote work ergonomic setup guide',
+    'Remote work internet requirements',
+    'Remote work security software comparison',
+    'Best remote work headphones and audio equipment',
+    'Remote work lighting and camera setup',
+    'Remote work standing desk options',
+    'Remote work backup solutions',
+    'Remote work password managers comparison',
+    'Remote work virtual office platforms',
+    'Remote work team building tools',
+    'Remote work expense tracking apps',
+    'Remote work legal compliance tools',
 ];
+
+// Determine if a topic requires web search
+function requiresWebSearch(topic) {
+    const searchKeywords = [
+        'comparison',
+        'compare',
+        'best',
+        'top',
+        'vs',
+        'versus',
+        'tools',
+        'software',
+        'platforms',
+        'services',
+        'solutions',
+        'recommendations',
+        'review',
+        'comparative',
+    ];
+
+    const lowerTopic = topic.toLowerCase();
+    return searchKeywords.some((keyword) => lowerTopic.includes(keyword));
+}
 
 // Get existing blog post titles to avoid repetition
 function getExistingTitles() {
@@ -123,8 +169,27 @@ function generateUniqueTopic(existingTitles) {
 }
 
 // Call OpenAI API to generate blog post
-async function generateBlogPost(topic, existingTitles) {
+async function generateBlogPost(topic, existingTitles, needsWebSearch = false) {
     const existingTitlesText = existingTitles.slice(-5).join(', '); // Use last 5 titles for context
+
+    // Build web search instructions if needed
+    let webSearchInstructions = '';
+    if (needsWebSearch) {
+        webSearchInstructions = `
+
+IMPORTANT: This topic requires current, up-to-date information. Please use your web search capabilities to:
+1. Search for the latest information about the topic
+2. Find current pricing, features, and comparisons
+3. Look for recent reviews and recommendations
+4. Gather data from multiple sources to ensure accuracy
+5. Use this current information to create detailed, accurate comparisons and recommendations
+
+Focus on providing specific, current details rather than general advice.`;
+
+        console.log(
+            '🔍 Instructing AI to perform web search for current information',
+        );
+    }
 
     const prompt = `You are a professional blog writer for JobMeerkat.com, a remote job board. Generate a high-quality blog post about "${topic}".
 
@@ -137,6 +202,7 @@ REQUIREMENTS:
 6. Write 800-1200 words
 7. Use the exact frontmatter format below
 8. Avoid topics already covered in these recent posts: ${existingTitlesText}
+${webSearchInstructions}
 
 FRONTMATTER FORMAT:
 ---
@@ -154,6 +220,11 @@ CONTENT GUIDELINES:
 - Add a call-to-action to visit JobMeerkat.com. Remember that the link should be formated as a markdown link. Like this: [JobMeerkat](https://jobmeerkat.com).
 - Use emojis sparingly but effectively
 - Include relevant keywords for SEO
+- Check the other blog posts titles and try to avoid repeating the same topics and style.
+${needsWebSearch ? '- Use web search to gather current, accurate information for comparisons and recommendations' : ''}
+${needsWebSearch ? '- Include specific tool names, features, pricing, and recent data' : ''}
+${needsWebSearch ? '- Create detailed comparison tables or lists when comparing multiple options' : ''}
+${needsWebSearch ? '- Cite sources and provide specific examples with current information' : ''}
 
 Generate the complete blog post with frontmatter:`;
 
@@ -241,9 +312,25 @@ async function main() {
         const topic = generateUniqueTopic(existingTitles);
         console.log(`📝 Selected topic: ${topic}`);
 
+        // Check if topic requires web search
+        const needsWebSearch = requiresWebSearch(topic);
+        if (needsWebSearch) {
+            console.log(
+                '🔍 Topic requires current research - AI will use web search',
+            );
+        } else {
+            console.log(
+                '📝 Topic does not require web search, using general knowledge',
+            );
+        }
+
         // Generate blog post
         console.log('🤖 Generating blog post with AI...');
-        const blogContent = await generateBlogPost(topic, existingTitles);
+        const blogContent = await generateBlogPost(
+            topic,
+            existingTitles,
+            needsWebSearch,
+        );
 
         // Save blog post
         const filename = saveBlogPost(blogContent, topic);
@@ -261,4 +348,9 @@ if (require.main === module) {
     main();
 }
 
-module.exports = { generateBlogPost, saveBlogPost, generateUniqueTopic };
+module.exports = {
+    generateBlogPost,
+    saveBlogPost,
+    generateUniqueTopic,
+    requiresWebSearch,
+};
