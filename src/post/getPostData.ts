@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import { getSiteUrl } from '@/shared/environment/getSiteUrl';
 
 export type PostData = {
     id: string;
@@ -21,8 +22,7 @@ const postsDirectory = path.join(process.cwd(), 'posts');
 const getIdFromFileName = (fileName: string): string =>
     fileName.replace(/\.md$/, '');
 
-const makePostUrl = (id: string): string =>
-    `${process.env.NEXT_PUBLIC_SITE_URL}/post/${id}`;
+const makePostUrl = (id: string): string => `${getSiteUrl()}/post/${id}`;
 
 export const getPostsData = (): Array<PostData> => {
     const fileNames = fs.readdirSync(postsDirectory);

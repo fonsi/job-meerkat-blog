@@ -31,6 +31,9 @@ export async function generateMetadata(
             title: post.title,
             description: post.description,
         },
+        alternates: {
+            canonical: post.url,
+        },
     };
 }
 

@@ -9,6 +9,7 @@ import { Main } from '@/shared/ui/Main';
 import { Page } from '@/shared/ui/Page';
 import { delaGothicOne } from '@/shared/font/constants';
 import { isProd } from '@/shared/environment/isProd';
+import { getSiteUrl } from '@/shared/environment/getSiteUrl';
 
 const UMAMI_ID = process.env.UMAMI_ID;
 
@@ -19,6 +20,9 @@ export const metadata: Metadata = {
     robots: {
         index: isProd,
         follow: isProd,
+    },
+    alternates: {
+        canonical: getSiteUrl(),
     },
 };
 
